@@ -4,6 +4,7 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 const { response } = require('express');
 dotenv.config();
+const dbService = require('./dbservice');
 
 app.use(cors());
 app.use(express.json());
@@ -17,7 +18,9 @@ app.post('/insert', (request, response) => {
 
 //read
 app.get('/getAll', (request, response) => {
-    console.log('test');
+    // console.log('test');
+    const db = dbService.getDbSericeInstance();
+    const result = db.getAllData();
 })
 
 //update
