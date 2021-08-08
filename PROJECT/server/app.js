@@ -13,7 +13,15 @@ app.use(express.urlencoded({extended : false}));
 
 //create
 app.post('/insert', (request, response) => {
-    
+    // console.log(request.body);
+    const { name } = request.body;
+    const db = dbService.getDbSericeInstance();
+
+    const result = db.insertNewName(name);
+
+    result
+    .then(data => response.json({ success : true}))
+    .catch(err => console.log(err));
 });
 
 //read
@@ -21,6 +29,10 @@ app.get('/getAll', (request, response) => {
     // console.log('test');
     const db = dbService.getDbSericeInstance();
     const result = db.getAllData();
+
+    result
+    .then(data => response.json({data : data}))
+    .catch(err => console.log(err));
 })
 
 //update
