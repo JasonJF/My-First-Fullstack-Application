@@ -20,7 +20,7 @@ app.post('/insert', (request, response) => {
     const result = db.insertNewName(name);
 
     result
-    .then(data => response.json({ success : true}))
+    .then(data => response.json({ data : data}))
     .catch(err => console.log(err));
 });
 
@@ -38,5 +38,15 @@ app.get('/getAll', (request, response) => {
 //update
 
 //delete
+app.delete('/delete/:id', (request,response) => {
+    // console.log(request.params);
+    const { id } = request.params;
+    const db = dbService.getDbSericeInstance();
+    
+    const result = db.deleteRowById(id);
 
+    result
+    .then(data => response.json({success : data}))
+    .catch(err => console.log(err));
+});
 app.listen(process.env.PORT, () => console.log('app is running'));
